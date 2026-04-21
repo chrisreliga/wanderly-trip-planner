@@ -1,0 +1,359 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+:root {
+  /* Font Colors */
+  --pink-accent: #f8315c;
+  --grey-accent: #717171;
+
+  /* Font Families */
+  --font-display: "Playfair Display", serif;
+
+  /* Font sizes */
+  --text-sm: 12px;
+  --text-base: 1.6rem;
+  --text-lg: 3rem;
+
+  /* Font weights */
+  --weight-thin: 200;
+  --weight-normal: 400;
+  --weight-bold: 700;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  background: #fafaf8;
+  font-family: sans-serif;
+}
+
+/* Top Navbar */
+.navbar {
+  background-color: #fff;
+  border-bottom: 1px solid #f0efeb;
+  width: 100%;
+  max-width: 100%;
+}
+
+.navbar-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+}
+
+.navbar h2 {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-normal);
+  font-family: var(--font-display);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar h2 .navbar-logo {
+  background: linear-gradient(135deg, #ff385c, #e31c5f);
+  font-size: var(--text-base);
+  height: 5rem;
+  width: 5rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar ul {
+  font-family: var(--font-display);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.navbar button {
+  font-size: var(--text-base);
+  color: var(--grey-accent);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.navbar .profile-button button {
+  background-color: #222;
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fafaf8;
+}
+
+.navbar .profile-button {
+  font-size: var(--text-base);
+  border: none;
+  background: none;
+}
+
+/* Trip Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding: 2rem 3rem;
+}
+
+.header h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+}
+
+.header .trip-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  font-weight: var(--weight-normal);
+  margin-top: 1rem;
+}
+
+.header p {
+  font-size: var(--text-base);
+  color: var(--grey-accent);
+}
+
+.header .header-button {
+  border: none;
+  background: linear-gradient(135deg, #ff385c, #e31c5f);
+  box-shadow: 0 2px 12px rgba(255, 56, 92, 0.3);
+  height: 5rem;
+  width: 15rem;
+  border-radius: 1rem;
+  color: #fff;
+  font-size: var(--text-base);
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+.header .trip-length {
+  color: var(--pink-accent);
+}
+
+/* Tabs */
+.tabs-wrapper {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.tabs {
+  display: flex;
+  margin-top: 1.5rem;
+  border-bottom: 2px solid #f0efeb;
+}
+
+.tabs li {
+  list-style: none;
+}
+
+.tabs button {
+  border: none;
+  background: none;
+  font-size: var(--text-base);
+  color: var(--grey-accent);
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 1rem;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  border-bottom: 2px solid var(--pink-accent);
+}
+
+/* Board */
+.board {
+  display: flex;
+  padding: 2rem 3rem;
+  overflow-x: scroll;
+  gap: 2rem;
+}
+
+/* Day Columns */
+.day-column {
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  width: 30rem;
+  min-width: 30rem;
+  height: 80rem;
+  flex-shrink: 0;
+  gap: 1rem;
+  overflow-y: scroll;
+}
+
+.day-column .column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #f0efeb;
+}
+
+.day-column .column-header .column-header-spacing {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.day-column .column-header input {
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: var(--text-base);
+  padding: 0.75rem;
+  font-size: var(--text-base);
+}
+
+.day-column .column-header input:focus {
+  outline: none;
+}
+
+.day-column .column-header .save-day-header {
+  padding: 5px;
+  width: 60px;
+}
+
+.day-column h2 {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  margin-bottom: 1rem;
+}
+
+.day-column p {
+  font-size: var(--text-sm);
+  color: var(--grey-accent);
+}
+
+.day-column .column-header span {
+  border: none;
+  background: #00000011;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  color: var(--grey-accent);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+}
+
+.day-column button {
+  background: none;
+  border: 2.5px dotted lightgray;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  cursor: pointer;
+  color: var(--grey-accent);
+  font-weight: var(--weight-bold);
+}
+
+.day-column button.delete-day-btn {
+  border: 2.5px dotted red;
+  color: red;
+}
+
+/* Place Cards */
+.place-cards {
+  padding: 1rem;
+  line-height: 3rem;
+  background: #fafaf8;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(78, 78, 78, 0.08);
+  border: 1px solid #9b9b9b2a;
+}
+
+.place-cards.editing-style {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: none;
+}
+
+.place-cards h3 {
+  font-size: var(--text-base);
+  font-weight: var(--weight-normal);
+}
+
+.place-cards p {
+  font-size: var(--text-sm);
+}
+
+.place-cards .card-category {
+  font-weight: var(--weight-bold);
+  color: var(--pink-accent);
+  background-color: rgba(255, 0, 0, 0.052);
+  width: fit-content;
+  padding: 0 1rem;
+  border-radius: 1rem;
+}
+
+.place-cards .card-note {
+  font-size: var(--text-sm);
+  color: var(--grey-accent);
+}
+
+.place-cards .card-time {
+  font-size: var(--text-sm);
+}
+
+.place-cards input.input {
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: var(--text-base);
+  padding: 0.5rem;
+}
+
+.place-cards input.input:focus,
+.place-cards .card-cat-select:focus {
+  outline: none;
+}
+
+.place-cards .card-cat-select {
+  border-radius: 1rem;
+  border: 1px solid #ccc;
+  font-size: var(--text-sm);
+  padding: 0.5rem;
+  width: 10rem;
+  font-family: sans-serif;
+  font-weight: var(--weight-bold);
+  color: var(--grey-accent);
+}
+
+.place-cards .edit-btns-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.place-cards button {
+  padding: 0.5rem;
+  font-size: var(--text-base);
+  font-weight: var(--weight-normal);
+}
+
+.place-cards button.edit-btn-save {
+  width: 50%;
+}
+
+.place-cards .edit-btn-cancel {
+  color: red;
+  border: none;
+}
