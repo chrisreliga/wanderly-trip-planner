@@ -1,16 +1,16 @@
 import { useState } from "react";
-import useTrip from "../hooks/useTrip.js";
+import useTrip from "../hooks/useTrip";
 import PlaceCard from "./PlaceCard";
+import { DayHeaderDraft, DayProps } from "../types";
 
-export default function DayColumn({ day, id }) {
+export default function DayColumn({ day, id }: DayProps) {
   const { handleAddDayHeader, handleDeleteDay } = useTrip();
 
   const [showForm, setShowForm] = useState(false);
   const [isEditing, setIsEditing] = useState(!day.label);
-  const [draft, setDraft] = useState({
+  const [draft, setDraft] = useState<DayHeaderDraft>({
     label: day.label,
     date: day.date,
-    id: day.id,
   });
 
   return (
@@ -53,7 +53,12 @@ export default function DayColumn({ day, id }) {
       )}
 
       {day.cards.map((card) => (
-        <PlaceCard card={card} key={card.id} dayId={id} />
+        <PlaceCard
+          card={card}
+          key={card.id}
+          dayId={id}
+          setShowForm={setShowForm}
+        />
       ))}
 
       {showForm ? (
@@ -64,6 +69,7 @@ export default function DayColumn({ day, id }) {
             category: "",
             note: "",
             id: Date.now(),
+            time: "",
           }}
           dayId={id}
         />

@@ -1,11 +1,16 @@
 import { useState } from "react";
 import useTrip from "../hooks/useTrip";
+import { PlaceCardProps } from "../types";
 
-export default function PlaceCard({ card, dayId, setShowForm }) {
+export default function PlaceCard({
+  card,
+  dayId,
+  setShowForm,
+}: PlaceCardProps) {
   const { handleAddPlace } = useTrip();
 
   const [isEditing, setIsEditing] = useState(!card.name);
-  const [draft, setDraft] = useState({
+  const [draft, setDraft] = useState<PlaceCardProps["card"]>({
     name: card.name,
     category: card.category,
     note: card.note,
@@ -95,9 +100,7 @@ export default function PlaceCard({ card, dayId, setShowForm }) {
             className="edit-btn-save"
             onClick={() => {
               {
-                handleAddPlace && draft.name !== ""
-                  ? handleAddPlace(dayId, draft)
-                  : null;
+                if (draft.name !== "") handleAddPlace(dayId, draft);
               }
 
               setIsEditing(false);

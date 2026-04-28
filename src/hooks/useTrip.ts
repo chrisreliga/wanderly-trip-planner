@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { trip } from "../data.js";
+import { PlaceCardDraft, DayHeaderDraft } from "../types";
 
 const useTrip = () => {
   const [tripInfo, setTripInfo] = useState(trip);
@@ -19,7 +20,7 @@ const useTrip = () => {
     });
   }
 
-  function handleAddDayHeader(dayId, draft) {
+  function handleAddDayHeader(dayId: number, draft: DayHeaderDraft) {
     setTripInfo({
       ...tripInfo,
       days: tripInfo.days.map((day) => {
@@ -34,7 +35,7 @@ const useTrip = () => {
     });
   }
 
-  function handleAddPlace(dayId, draft) {
+  function handleAddPlace(dayId: number, draft: PlaceCardDraft) {
     setTripInfo({
       ...tripInfo,
       days: tripInfo.days.map((day) => {
@@ -47,6 +48,7 @@ const useTrip = () => {
                 name: draft.name,
                 category: draft.category,
                 note: draft.note,
+                time: draft.time,
                 id: draft.id,
               },
             ],
@@ -56,7 +58,7 @@ const useTrip = () => {
     });
   }
 
-  function handleDeleteDay(dayId) {
+  function handleDeleteDay(dayId: number) {
     setTripInfo({
       ...tripInfo,
       days: tripInfo.days.filter((day) => {
