@@ -1,14 +1,10 @@
 import { useState } from "react";
-
+import useTrip from "../hooks/useTrip.js";
 import PlaceCard from "./PlaceCard";
 
-export default function DayColumn({
-  day,
-  handleAddPlace,
-  id,
-  handleDeleteDay,
-  handleAddDayHeader,
-}) {
+export default function DayColumn({ day, id }) {
+  const { handleAddDayHeader, handleDeleteDay } = useTrip();
+
   const [showForm, setShowForm] = useState(false);
   const [isEditing, setIsEditing] = useState(!day.label);
   const [draft, setDraft] = useState({
@@ -57,19 +53,19 @@ export default function DayColumn({
       )}
 
       {day.cards.map((card) => (
-        <PlaceCard card={card} key={card.id} />
+        <PlaceCard card={card} key={card.id} dayId={id} />
       ))}
 
       {showForm ? (
         <PlaceCard
-          handleAddPlace={(draft) => handleAddPlace(id, draft)}
+          setShowForm={setShowForm}
           card={{
             name: "",
             category: "",
             note: "",
             id: Date.now(),
           }}
-          setShowForm={setShowForm}
+          dayId={id}
         />
       ) : null}
 

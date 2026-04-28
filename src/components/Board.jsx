@@ -1,22 +1,13 @@
 import DayColumn from "./DayColumn";
+import useTrip from "../hooks/useTrip.js";
 
-export default function Board({
-  days,
-  handleAddPlace,
-  handleDeleteDay,
-  handleAddDayHeader,
-}) {
+export default function Board() {
+  const { tripInfo } = useTrip();
+
   return (
     <section className="board">
-      {days.map((day) => (
-        <DayColumn
-          handleAddPlace={handleAddPlace}
-          handleDeleteDay={handleDeleteDay}
-          handleAddDayHeader={handleAddDayHeader}
-          day={day}
-          key={day.id}
-          id={day.id}
-        />
+      {tripInfo.days.map((day) => (
+        <DayColumn day={day} key={day.id} id={day.id} />
       ))}
     </section>
   );

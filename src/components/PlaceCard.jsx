@@ -1,6 +1,9 @@
 import { useState } from "react";
+import useTrip from "../hooks/useTrip";
 
-export default function PlaceCard({ card, handleAddPlace, setShowForm }) {
+export default function PlaceCard({ card, dayId, setShowForm }) {
+  const { handleAddPlace } = useTrip();
+
   const [isEditing, setIsEditing] = useState(!card.name);
   const [draft, setDraft] = useState({
     name: card.name,
@@ -93,7 +96,7 @@ export default function PlaceCard({ card, handleAddPlace, setShowForm }) {
             onClick={() => {
               {
                 handleAddPlace && draft.name !== ""
-                  ? handleAddPlace(draft)
+                  ? handleAddPlace(dayId, draft)
                   : null;
               }
 
