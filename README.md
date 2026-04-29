@@ -13,10 +13,10 @@ A trip planning app for organizing days and places on a visual board.
 
 ## Tech Stack
 
-- React 19
+- React
+- TypeScript
+- JavaScript
 - Vite
-- Plain CSS
-- Font Awesome (icons)
 
 ## Concepts Practiced
 
