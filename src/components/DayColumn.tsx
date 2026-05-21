@@ -1,10 +1,23 @@
-import { useState } from "react";
-import useTrip from "../hooks/useTrip";
-import PlaceCard from "./PlaceCard";
-import { DayHeaderDraft, DayProps } from "../types";
+import { useState, useContext } from "react";
+import { GlobalContext } from "../context/GlobalState.tsx";
 
-export default function DayColumn({ day, id }: DayProps) {
-  const { handleAddDayHeader, handleDeleteDay } = useTrip();
+import PlaceCard from "./PlaceCard";
+
+import { DayHeaderDraft } from "../types.ts";
+import { PlaceCardDraft } from "../types.ts";
+
+type Props = {
+  day: {
+    label: string;
+    date: string;
+    id: number;
+    cards: PlaceCardDraft[];
+  };
+  id: number;
+};
+
+export default function DayColumn({ day, id }: Props) {
+  const { handleAddDayHeader, handleDeleteDay } = useContext(GlobalContext)!;
 
   const [showForm, setShowForm] = useState(false);
   const [isEditing, setIsEditing] = useState(!day.label);
@@ -33,7 +46,10 @@ export default function DayColumn({ day, id }: DayProps) {
               <button
                 className="save-day-header"
                 onClick={() => {
-                  handleAddDayHeader(id, draft);
+                  handleAddDayHeader({
+                    dayId: day.id,
+                    draft: draft,
+                  });
                   setIsEditing(false);
                 }}
               >

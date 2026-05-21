@@ -1,16 +1,23 @@
-import { useState } from "react";
-import useTrip from "../hooks/useTrip";
-import { PlaceCardProps } from "../types";
+import { useState, useContext } from "react";
+import { GlobalContext } from "../context/GlobalState";
 
-export default function PlaceCard({
-  card,
-  dayId,
-  setShowForm,
-}: PlaceCardProps) {
-  const { handleAddPlace } = useTrip();
+type Props = {
+  card: {
+    name: string;
+    category: string;
+    note: string;
+    time: string;
+    id: number;
+  };
+  dayId: number;
+  setShowForm: (value: boolean) => void;
+};
+
+export default function PlaceCard({ card, dayId, setShowForm }: Props) {
+  const { handleAddPlace } = useContext(GlobalContext)!;
 
   const [isEditing, setIsEditing] = useState(!card.name);
-  const [draft, setDraft] = useState<PlaceCardProps["card"]>({
+  const [draft, setDraft] = useState<Props["card"]>({
     name: card.name,
     category: card.category,
     note: card.note,
@@ -99,9 +106,7 @@ export default function PlaceCard({
           <button
             className="edit-btn-save"
             onClick={() => {
-              {
-                if (draft.name !== "") handleAddPlace(dayId, draft);
-              }
+              if (draft.name !== "") handleAddPlace({ dayId, draft });
 
               setIsEditing(false);
 

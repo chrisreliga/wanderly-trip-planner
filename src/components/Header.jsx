@@ -1,7 +1,8 @@
-import useTrip from "../hooks/useTrip.js";
+import { useContext } from "react";
+import { GlobalContext } from "../context/GlobalState";
 
 export default function Header() {
-  const { handleAddDay, tripInfo } = useTrip();
+  const { handleAddDay, tripInfo } = useContext(GlobalContext);
 
   return (
     <header className="header">

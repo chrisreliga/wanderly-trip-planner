@@ -20,7 +20,13 @@ const useTrip = () => {
     });
   }
 
-  function handleAddDayHeader(dayId: number, draft: DayHeaderDraft) {
+  function handleAddDayHeader({
+    dayId,
+    draft,
+  }: {
+    dayId: number;
+    draft: DayHeaderDraft;
+  }) {
     setTripInfo({
       ...tripInfo,
       days: tripInfo.days.map((day) => {
@@ -35,7 +41,13 @@ const useTrip = () => {
     });
   }
 
-  function handleAddPlace(dayId: number, draft: PlaceCardDraft) {
+  function handleAddPlace({
+    dayId,
+    draft,
+  }: {
+    dayId: number;
+    draft: PlaceCardDraft;
+  }): void {
     setTripInfo({
       ...tripInfo,
       days: tripInfo.days.map((day) => {

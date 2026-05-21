@@ -1,8 +1,10 @@
 import DayColumn from "./DayColumn";
-import useTrip from "../hooks/useTrip.js";
+
+import { useContext } from "react";
+import { GlobalContext } from "../context/GlobalState";
 
 export default function Board() {
-  const { tripInfo } = useTrip();
+  const { tripInfo } = useContext(GlobalContext);
 
   return (
     <section className="board">
