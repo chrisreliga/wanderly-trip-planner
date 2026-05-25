@@ -1,13 +1,14 @@
 import "leaflet/dist/leaflet.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { MapContainer, TileLayer, useMap, Marker } from "react-leaflet";
+import { useQuery } from "@tanstack/react-query";
 
 // Map Updater Function
 function MapUpdater({ coordinates }) {
   const map = useMap();
 
   useEffect(() => {
-    map.setView(coordinates, 16);
+    map.setView(coordinates, 13);
   }, [coordinates]);
 
   return null;
@@ -15,36 +16,43 @@ function MapUpdater({ coordinates }) {
 
 export default function MapView() {
   const [searchInput, setSearchInput] = useState("");
-  const [coordinates, setCoordinates] = useState([37.8, -122.15]);
+  const [debouncedSearch, setDebouncedSearch] = useState();
 
-  // Async Function
-  async function handleSubmit(e) {
-    e.preventDefault();
+  // Query Function
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["location", debouncedSearch],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${debouncedSearch}&format=json`,
+      );
 
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/search?q=${searchInput}&format=json`,
-    );
+      return await response.json();
+    },
+  });
 
-    const data = await response.json();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchInput);
+    }, 1000);
 
-    const lat = parseFloat(data[0].lat);
-    const lon = parseFloat(data[0].lon);
-    console.log(lat, lon);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
-    setCoordinates([lat, lon]);
-  }
+  // Defining the Coordinates based off the data from the API fetch
+  const coordinates =
+    data && data[0] ? [data[0].lat, data[0].lon] : [37.8, -122.15];
 
+  // Return Statement
   return (
     <div className="map">
       <div className="search-container">
-        <form onSubmit={handleSubmit}>
+        <form>
           <input
             type="text"
             id="search-input"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <button type="submit">Search</button>
         </form>
       </div>
 
