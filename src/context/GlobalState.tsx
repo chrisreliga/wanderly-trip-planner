@@ -1,5 +1,5 @@
 import { createContext, ReactNode } from "react";
-import useTrip from "../hooks/useTrip";
+import { useTrip } from "../hooks/useTrip";
 
 // Create Context
 export const GlobalContext = createContext<ReturnType<typeof useTrip> | null>(

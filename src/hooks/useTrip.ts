@@ -2,7 +2,7 @@ import { useState } from "react";
 import { trip } from "../data.js";
 import { PlaceCardDraft, DayHeaderDraft } from "../types";
 
-const useTrip = () => {
+export const useTrip = () => {
   const [tripInfo, setTripInfo] = useState(trip);
 
   function handleAddDay() {
@@ -87,5 +87,3 @@ const useTrip = () => {
     tripInfo,
   };
 };
-
-export default useTrip;

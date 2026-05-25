@@ -357,3 +357,12 @@ body {
   color: red;
   border: none;
 }
+
+/* Map */
+.map {
+  padding: 2rem 3rem;
+}
+
+.leaflet-container {
+  height: 620px;
+}
