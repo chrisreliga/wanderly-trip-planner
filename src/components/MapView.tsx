@@ -1,5 +1,5 @@
 import "leaflet/dist/leaflet.css";
-import { useState, useEffect, useSyncExternalStore } from "react";
+import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, useMap, Marker } from "react-leaflet";
 import { useQuery } from "@tanstack/react-query";
 

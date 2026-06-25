@@ -293,6 +293,16 @@ body {
   font-weight: var(--weight-normal);
 }
 
+.place-card-delete-btn-spacing {
+  display: flex;
+  justify-content: space-between;
+}
+
+button.place-card-delete-btn {
+  color: rgba(255, 0, 0, 0.59);
+  border: none;
+}
+
 .place-cards p {
   font-size: var(--text-sm);
 }
@@ -354,7 +364,7 @@ body {
 }
 
 .place-cards .edit-btn-cancel {
-  color: red;
+  color: rgba(255, 0, 0, 0.59);
   border: none;
 }
 

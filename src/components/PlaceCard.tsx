@@ -14,9 +14,16 @@ type Props = {
 };
 
 export default function PlaceCard({ card, dayId, setShowForm }: Props) {
-  const { handleAddPlace } = useContext(GlobalContext)!;
+  const {
+    handleAddPlace,
+    handleDeletePlace,
+    customCategories,
+    handleAddCategory,
+  } = useContext(GlobalContext)!;
 
   const [isEditing, setIsEditing] = useState(!card.name);
+  const [isAddingCategory, setIsAddingCategory] = useState(false);
+  const [errors, setErrors] = useState({});
   const [draft, setDraft] = useState<Props["card"]>({
     name: card.name,
     category: card.category,
@@ -41,19 +48,54 @@ export default function PlaceCard({ card, dayId, setShowForm }: Props) {
           }
         />
       ) : (
-        <h3>{card.name}</h3>
+        <div className="place-card-delete-btn-spacing">
+          <h3>{card.name}</h3>
+          <button
+            className="place-card-delete-btn"
+            onClick={() => handleDeletePlace({ dayId, cardId: card.id })}
+          >
+            <i className="fa-regular fa-trash-can"></i>
+          </button>
+        </div>
       )}
       {isEditing ? (
-        <select
-          className="card-cat-select input"
-          value={draft.category}
-          onChange={(e) => setDraft({ ...draft, category: e.target.value })}
-        >
-          <option></option>
-          <option>Landmark</option>
-          <option>Restaurant</option>
-          <option>Activity</option>
-        </select>
+        isAddingCategory ? (
+          <input
+            type="text"
+            className="card-cat-select input"
+            onChange={(e) => setDraft({ ...draft, category: e.target.value })}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleAddCategory(draft.category);
+
+                setIsAddingCategory(false);
+              }
+            }}
+          />
+        ) : (
+          <select
+            className="card-cat-select input"
+            value={draft.category}
+            onChange={(e) => {
+              if (e.target.value === "__custom__") {
+                setIsAddingCategory(true);
+              } else {
+                setDraft({ ...draft, category: e.target.value });
+              }
+            }}
+          >
+            <option></option>
+            <option>Landmark</option>
+            <option>Restaurant</option>
+            <option>Activity</option>
+            {customCategories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+            <option value="__custom__">Add Category...</option>
+          </select>
+        )
       ) : (
         <p className="card-category">{card.category}</p>
       )}
@@ -106,7 +148,7 @@ export default function PlaceCard({ card, dayId, setShowForm }: Props) {
           <button
             className="edit-btn-save"
             onClick={() => {
-              if (draft.name !== "") handleAddPlace({ dayId, draft });
+              if (draft.name !== "" &&) handleAddPlace({ dayId, draft });
 
               setIsEditing(false);
 
