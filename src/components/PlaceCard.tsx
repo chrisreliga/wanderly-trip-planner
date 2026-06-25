@@ -148,7 +148,7 @@ export default function PlaceCard({ card, dayId, setShowForm }: Props) {
           <button
             className="edit-btn-save"
             onClick={() => {
-              if (draft.name !== "" &&) handleAddPlace({ dayId, draft });
+              if (draft.name !== "") handleAddPlace({ dayId, draft });
 
               setIsEditing(false);
 
