@@ -1,20 +1,29 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { GlobalContext } from "../context/GlobalState.tsx";
 
 import PlaceCard from "./PlaceCard";
 
-export default function DayColumn({
-  day,
-  handleAddPlace,
-  id,
-  handleDeleteDay,
-  handleAddDayHeader,
-}) {
+import { DayHeaderDraft } from "../types.ts";
+import { PlaceCardDraft } from "../types.ts";
+
+type Props = {
+  day: {
+    label: string;
+    date: string;
+    id: number;
+    cards: PlaceCardDraft[];
+  };
+  id: number;
+};
+
+export default function DayColumn({ day, id }: Props) {
+  const { handleAddDayHeader, handleDeleteDay } = useContext(GlobalContext)!;
+
   const [showForm, setShowForm] = useState(false);
   const [isEditing, setIsEditing] = useState(!day.label);
-  const [draft, setDraft] = useState({
+  const [draft, setDraft] = useState<DayHeaderDraft>({
     label: day.label,
     date: day.date,
-    id: day.id,
   });
 
   return (
@@ -37,7 +46,10 @@ export default function DayColumn({
               <button
                 className="save-day-header"
                 onClick={() => {
-                  handleAddDayHeader(id, draft);
+                  handleAddDayHeader({
+                    dayId: day.id,
+                    draft: draft,
+                  });
                   setIsEditing(false);
                 }}
               >
@@ -57,19 +69,25 @@ export default function DayColumn({
       )}
 
       {day.cards.map((card) => (
-        <PlaceCard card={card} key={card.id} />
+        <PlaceCard
+          card={card}
+          key={card.id}
+          dayId={id}
+          setShowForm={setShowForm}
+        />
       ))}
 
       {showForm ? (
         <PlaceCard
-          handleAddPlace={(draft) => handleAddPlace(id, draft)}
+          setShowForm={setShowForm}
           card={{
             name: "",
             category: "",
             note: "",
             id: Date.now(),
+            time: "",
           }}
-          setShowForm={setShowForm}
+          dayId={id}
         />
       ) : null}
 

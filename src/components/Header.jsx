@@ -1,14 +1,17 @@
-import App from "../App";
+import { useContext } from "react";
+import { GlobalContext } from "../context/GlobalState";
 
-export default function Header({ trip, handleAddDay }) {
+export default function Header() {
+  const { handleAddDay, tripInfo } = useContext(GlobalContext);
+
   return (
     <header className="header">
       <div className="header-text">
-        <h1>{trip.label}</h1>
+        <h1>{tripInfo.label}</h1>
         <div className="trip-details">
-          <p>🗓️ {trip.dates}</p>
-          <p>🇺🇸 {trip.country}</p>
-          <p className="trip-length">{trip.tripLength} Days</p>
+          <p>🗓️ {tripInfo.dates}</p>
+          <p>🇺🇸 {tripInfo.country}</p>
+          <p className="trip-length">{tripInfo.tripLength} Days</p>
         </div>
       </div>
 
