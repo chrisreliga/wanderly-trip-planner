@@ -25,7 +25,12 @@ export default function PlaceCard({ card, dayId, setShowForm }: Props) {
   const myRef = useRef<HTMLInputElement>(null);
   const [isEditing, setIsEditing] = useState(!card.name);
   const [isAddingCategory, setIsAddingCategory] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<{
+    name: boolean;
+    category: boolean;
+    note: boolean;
+    time: boolean;
+  }>({ name: false, category: false, note: false, time: false });
   const [draft, setDraft] = useState<Props["card"]>({
     name: card.name,
     category: card.category,
@@ -45,7 +50,7 @@ export default function PlaceCard({ card, dayId, setShowForm }: Props) {
       {isEditing ? (
         <input
           type="text"
-          className="card-name-input input"
+          className={`input ${errors.name ? "input-error" : ""}`}
           placeholder="What are you doing today?"
           value={draft.name}
           onChange={(e) =>
@@ -70,8 +75,7 @@ export default function PlaceCard({ card, dayId, setShowForm }: Props) {
         isAddingCategory ? (
           <input
             type="text"
-            className="card-cat-select input"
-            id="card-cat-select"
+            className={`input ${errors.category ? "input-error" : ""}`}
             placeholder="Add Category..."
             ref={myRef}
             onChange={(e) => setDraft({ ...draft, category: e.target.value })}
@@ -85,7 +89,7 @@ export default function PlaceCard({ card, dayId, setShowForm }: Props) {
           />
         ) : (
           <select
-            className="card-cat-select input"
+            className={`card-cat-select ${errors.category ? "input-error" : ""}`}
             value={draft.category}
             onChange={(e) => {
               if (e.target.value === "__custom__") {
@@ -113,7 +117,7 @@ export default function PlaceCard({ card, dayId, setShowForm }: Props) {
       {isEditing ? (
         <input
           type="text"
-          className="card-note-input input"
+          className={`input ${errors.note ? "input-error" : ""}`}
           placeholder="Add a note..."
           value={draft.note}
           onChange={(e) =>
@@ -129,7 +133,7 @@ export default function PlaceCard({ card, dayId, setShowForm }: Props) {
       {isEditing ? (
         <input
           type="time"
-          className="card-time-input input"
+          className={`input ${errors.time ? "input-error" : ""}`}
           value={draft.time}
           onChange={(e) =>
             setDraft({
@@ -159,7 +163,23 @@ export default function PlaceCard({ card, dayId, setShowForm }: Props) {
           <button
             className="edit-btn-save"
             onClick={() => {
-              if (draft.name !== "") handleAddPlace({ dayId, draft });
+              if (
+                !draft.name ||
+                !draft.category ||
+                !draft.note ||
+                !draft.time
+              ) {
+                setErrors({
+                  name: !draft.name,
+                  category: !draft.category,
+                  note: !draft.note,
+                  time: !draft.time,
+                });
+
+                return;
+              }
+
+              handleAddPlace({ dayId, draft });
 
               setIsEditing(false);
 
