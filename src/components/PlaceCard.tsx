@@ -1,5 +1,6 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { GlobalContext } from "../context/GlobalState";
+import { isJSDocReadonlyTag } from "typescript";
 
 type Props = {
   card: {
@@ -21,6 +22,7 @@ export default function PlaceCard({ card, dayId, setShowForm }: Props) {
     handleAddCategory,
   } = useContext(GlobalContext)!;
 
+  const myRef = useRef<HTMLInputElement>(null);
   const [isEditing, setIsEditing] = useState(!card.name);
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [errors, setErrors] = useState({});
@@ -31,6 +33,12 @@ export default function PlaceCard({ card, dayId, setShowForm }: Props) {
     time: card.time,
     id: card.id,
   });
+
+  useEffect(() => {
+    if (isAddingCategory && myRef.current) {
+      myRef.current.focus();
+    }
+  }, [isAddingCategory]);
 
   return (
     <article className={`place-cards ${isEditing ? "editing-style" : null}`}>
@@ -63,6 +71,9 @@ export default function PlaceCard({ card, dayId, setShowForm }: Props) {
           <input
             type="text"
             className="card-cat-select input"
+            id="card-cat-select"
+            placeholder="Add Category..."
+            ref={myRef}
             onChange={(e) => setDraft({ ...draft, category: e.target.value })}
             onKeyDown={(e) => {
               if (e.key === "Enter") {

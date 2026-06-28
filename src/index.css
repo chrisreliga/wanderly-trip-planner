@@ -348,6 +348,17 @@ button.place-card-delete-btn {
   color: var(--grey-accent);
 }
 
+#card-cat-select {
+  font-size: 1rem;
+  color: black;
+  font-weight: 400;
+  text-align: left;
+}
+
+#card-cat-select::placeholder {
+  /* text-align: right; */
+}
+
 .place-cards .edit-btns-container {
   display: flex;
   justify-content: space-between;
